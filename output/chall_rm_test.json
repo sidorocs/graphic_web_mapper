@@ -1,0 +1,31 @@
+{
+    "GET": {
+        "https://day10.challenges.xmas.root-me.org/": {},
+        "https://day10.challenges.xmas.root-me.org/login": {
+            "GET": {
+                "https://day10.challenges.xmas.root-me.org/": {},
+                "https://day10.challenges.xmas.root-me.org/login": {},
+                "https://day10.challenges.xmas.root-me.org/signup": {
+                    "GET": {
+                        "https://day10.challenges.xmas.root-me.org/": {},
+                        "https://day10.challenges.xmas.root-me.org/login": {},
+                        "https://day10.challenges.xmas.root-me.org/signup": {},
+                        "https://route-mi.org/": {},
+                        "https://day10.challenges.xmas.root-me.org/static/shop-route-mi.zip": {}
+                    },
+                    "POST": [
+                        "https://day10.challenges.xmas.root-me.org/signup"
+                    ]
+                },
+                "https://route-mi.org/": {},
+                "https://day10.challenges.xmas.root-me.org/static/shop-route-mi.zip": {}
+            },
+            "POST": [
+                "https://day10.challenges.xmas.root-me.org/login"
+            ]
+        },
+        "https://day10.challenges.xmas.root-me.org/signup": {},
+        "https://route-mi.org/": {},
+        "https://day10.challenges.xmas.root-me.org/static/shop-route-mi.zip": {}
+    }
+}
