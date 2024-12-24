@@ -1,5 +1,9 @@
 import json
 import os
+import re
+
+
+DOMAIN_NAME_EXTRACTOR = r'^(?:https?://)?(?:www\.)?([^/:?#]+)'
 
 def get_src_folder_path():
     return os.path.abspath(os.getcwd()) + "/"
@@ -41,6 +45,15 @@ def write_dict_to_json(data, filename):
         print(f"Results have been saved to {filename} (json).")
     except Exception as e:
         print(f"Error while writing the file: {e}")
+
+
+def verify_domain_name_from_url(url, domain_name):
+    match = re.search(DOMAIN_NAME_EXTRACTOR, url)
+    if match:
+        url_domain_name = match.group(1)
+        if domain_name not in url_domain_name:
+            return False
+    return True
 
 
 

@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from config import *
+from utils import *
 
 
 def extract_links_and_forms(url):
@@ -42,7 +43,7 @@ def extract_links_and_forms(url):
         return {}
 
 
-def map_website(url, dont_crawl_that, visited=None):
+def map_website(url, excluding_domains=None, restricted_to_domain=None, visited=None):
     """
     Function to recursively map a website starting from the base URL.
     Calls `extract_links_and_forms` for each page and processes the results.
@@ -50,13 +51,15 @@ def map_website(url, dont_crawl_that, visited=None):
     if visited is None:
         visited = set()  # Initialize the set of visited URLs
 
-    for domain_name in dont_crawl_that:
-        print("dont crawl that", dont_crawl_that)
-        print("url : ", url)
-        print("domain : ", domain_name)
-        print(url in domain_name)
-        if url.find(domain_name) != -1:
-            print(f"not visiting {url}")
+    if excluding_domains is not None:
+        for domain_name in excluding_domains:
+            print(url in domain_name)
+            if url.find(domain_name) != -1:
+                print(f"not visiting {url}")
+                return {}
+    
+    elif restricted_to_domain is not None:
+        if not verify_domain_name_from_url(url, restricted_to_domain):
             return {}
 
     # Stop if the URL has already been visited
@@ -75,7 +78,12 @@ def map_website(url, dont_crawl_that, visited=None):
     # Recursively visit all GET links
     for link in data.get('GET', []):
         if link not in visited:
-            child_map = map_website(link, dont_crawl_that, visited)
+            if excluding_domains:
+                child_map = map_website(link, excluding_domains, None, visited)
+            elif restricted_to_domain:
+                child_map = map_website(link, None, restricted_to_domain, visited)
+            
+            
             site_map['GET'][link] = child_map  # Add the child map to the current site map
 
     return site_map

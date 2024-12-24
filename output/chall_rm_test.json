@@ -11,7 +11,9 @@
                         "https://day10.challenges.xmas.root-me.org/login": {},
                         "https://day10.challenges.xmas.root-me.org/signup": {},
                         "https://route-mi.org/": {},
-                        "https://day10.challenges.xmas.root-me.org/static/shop-route-mi.zip": {}
+                        "https://day10.challenges.xmas.root-me.org/static/shop-route-mi.zip": {
+                            "GET": {}
+                        }
                     },
                     "POST": [
                         "https://day10.challenges.xmas.root-me.org/signup"
